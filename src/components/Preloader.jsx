@@ -30,17 +30,17 @@ const Preloader = ({ onComplete }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black text-white px-8"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black text-white px-4 md:px-8"
       initial={{ opacity: 1 }}
       exit={{ 
         y: "-100%", 
         transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
       }}
     >
-      <div className="flex flex-col items-center justify-center gap-8 w-full max-w-md">
+      <div className="flex flex-col items-center justify-center gap-6 md:gap-8 w-full max-w-xs sm:max-w-sm md:max-w-md">
         
         {/* Progress Text */}
-        <div className="flex justify-between w-full text-[10px] uppercase font-mono tracking-widest opacity-50">
+        <div className="flex justify-between w-full text-[8px] sm:text-[10px] uppercase font-mono tracking-wider sm:tracking-widest opacity-50">
           <span>System Initialization</span>
           <span>{progress}%</span>
         </div>
@@ -56,12 +56,12 @@ const Preloader = ({ onComplete }) => {
         </div>
 
         {/* Branding */}
-        <div className="text-3xl font-signature tracking-tight mt-4">Kumar Aryan</div>
+        <div className="text-2xl sm:text-3xl font-signature tracking-tight mt-2 md:mt-4 text-center">Kumar Aryan</div>
         
         {/* Status indicator */}
-        <div className="flex items-center gap-4 mt-8">
-           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-           <span className="text-[10px] uppercase font-mono tracking-widest opacity-40">
+        <div className="flex items-center gap-3 sm:gap-4 mt-6 md:mt-8">
+           <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 animate-pulse shrink-0" />
+           <span className="text-[8px] sm:text-[10px] uppercase font-mono tracking-wider sm:tracking-widest opacity-40 text-center">
              {progress < 100 ? "Compiling Assets..." : "System Ready."}
            </span>
         </div>
