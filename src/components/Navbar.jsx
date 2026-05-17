@@ -58,13 +58,13 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-0 left-0 w-full z-40 px-6 md:px-12 py-4 md:py-6 border-b border-white/10 flex justify-between items-center text-sm uppercase tracking-widest font-mono bg-black/70 backdrop-blur-md"
+      className="fixed top-0 left-0 w-full z-40 px-4 sm:px-6 md:px-12 py-3 md:py-6 border-b border-white/10 flex justify-between items-center text-sm uppercase tracking-widest font-mono bg-black/70 backdrop-blur-md"
     >
       {/* Logo - Exactly as original */}
       <a 
         href="#home" 
         data-cursor="hover" 
-        className="text-4xl tracking-tighter normal-case font-signature text-white outline-none"
+        className="text-2xl sm:text-3xl md:text-4xl tracking-tighter normal-case font-signature text-white outline-none"
       >
         Kumar Aryan
       </a>

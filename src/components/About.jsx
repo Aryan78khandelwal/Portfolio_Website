@@ -13,7 +13,7 @@ const About = () => {
           className="z-10 order-1 md:order-1"
         >
           <span className="text-[10px] tracking-[0.4em] font-mono uppercase opacity-50 block mb-6 md:mb-8">System Profile</span>
-          <h2 className="text-5xl md:text-8xl font-light uppercase tracking-tight leading-none mb-8 md:mb-10">
+          <h2 className="text-4xl sm:text-5xl md:text-8xl font-light uppercase tracking-tight leading-none mb-8 md:mb-10">
             THE <br />
             <span className="font-black italic">ENGINEER_</span>
           </h2>
@@ -32,7 +32,7 @@ const About = () => {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-          className="relative aspect-square md:h-[500px] bg-zinc-900 border border-white/10 flex items-center justify-center group overflow-hidden order-2 md:order-2"
+          className="relative w-full max-h-[350px] sm:max-h-none sm:aspect-square md:h-[500px] bg-zinc-900 border border-white/10 flex items-center justify-center group overflow-hidden order-2 md:order-2"
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_rgba(255,255,255,0.05)_0%,_transparent_70%)]" />
           

@@ -78,7 +78,7 @@ const Contact = () => {
             viewport={{ once: true }}
           >
             <span className="text-[10px] tracking-[0.4em] uppercase opacity-50 block mb-8">Initialize Connection</span>
-            <h2 className="text-6xl md:text-8xl font-light uppercase tracking-tight mb-8">GET IN <br /><span className="font-black italic">TOUCH_</span></h2>
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-light uppercase tracking-tight mb-8">GET IN <br /><span className="font-black italic">TOUCH_</span></h2>
             <p className="font-mono text-xs uppercase opacity-40 max-w-sm leading-relaxed">
               Available for high-impact engineering roles, architecture consulting, or experimental collaborations.
             </p>

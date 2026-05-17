@@ -3,9 +3,9 @@ import { motion } from 'motion/react';
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-screen flex flex-col md:flex-row border-b border-white/10 overflow-hidden pt-24 md:pt-24">
+    <section id="home" className="min-h-screen flex flex-col md:flex-row border-b border-white/10 overflow-hidden pt-16 md:pt-24">
       {/* Left Content */}
-      <div className="flex-1 p-8 md:p-12 md:pl-20 flex flex-col justify-center border-r border-white/10 bg-black">
+      <div className="flex-1 p-6 sm:p-8 md:p-12 md:pl-20 flex flex-col justify-center md:border-r border-white/10 bg-black">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -13,7 +13,7 @@ const Hero = () => {
           className="mb-8 space-y-4"
         >
           <span className="text-[10px] tracking-[0.4em] uppercase opacity-50 block">Engineered Systems</span>
-          <h1 className="text-6xl md:text-8xl font-light leading-none tracking-tight uppercase">
+          <h1 className="text-5xl sm:text-6xl md:text-8xl font-light leading-none tracking-tight uppercase">
             CRAFTING <br />
             <span className="font-black italic text-white/90">SYSTEMS</span>
           </h1>

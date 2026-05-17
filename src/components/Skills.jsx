@@ -17,10 +17,10 @@ const Skills = () => {
            className="mb-20"
         >
           <span className="text-[10px] tracking-[0.4em] uppercase opacity-50 block mb-4">Mastered Tech</span>
-          <h2 className="text-6xl md:text-8xl font-light uppercase tracking-tight">EXPERTISE<span className="font-black italic text-white/90">_</span></h2>
+          <h2 className="text-4xl sm:text-6xl md:text-8xl font-light uppercase tracking-tight">EXPERTISE<span className="font-black italic text-white/90">_</span></h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-12 md:gap-x-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-10 md:gap-x-12">
           {skills.map((skill, index) => (
             <motion.div
               key={skill}

@@ -49,7 +49,7 @@ export default function App() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.8 }}
-        className="py-20 px-12 border-t border-white/10 bg-black"
+        className="py-16 px-6 sm:px-8 md:px-12 border-t border-white/10 bg-black"
       >
         <div className="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20">
           <div>
@@ -77,7 +77,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex flex-col md:items-end justify-between gap-8 text-right">
+          <div className="flex flex-col items-start md:items-end justify-between gap-6 md:gap-8">
             <div className="flex items-center gap-4 bg-zinc-900/50 p-3 rounded-full border border-white/5 w-fit ml-auto">
               <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
               <span className="text-[10px] uppercase tracking-widest opacity-50 whitespace-nowrap">Available for hire</span>
