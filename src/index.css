@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Grotesk:wght@300;700&family=Mr+Dafoe&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-signature: "Mr Dafoe", cursive;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  section {
+    scroll-margin-top: 5rem;
+  }
+  body {
+    @apply bg-black text-white selection:bg-white selection:text-black;
+    cursor: none;
+  }
+  
+  /* For mobile, show default cursor if needed, but the user asked for custom cursor */
+  @media (pointer: coarse) {
+    body {
+      cursor: auto;
+    }
+  }
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

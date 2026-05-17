@@ -1,0 +1,8 @@
+{
+  "name": "Artyom - Engineer Portfolio",
+  "description": "An attractive, 3D-inspired black and white portfolio for an engineer, featuring interactive cards and smooth animations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
