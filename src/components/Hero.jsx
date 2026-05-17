@@ -25,7 +25,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.5 }}
           className="text-sm text-zinc-400 max-w-xs mb-10 leading-relaxed font-mono uppercase"
         >
-          Building robust backends and pixel-perfect frontends with Node.js, C++, and Tailwind CSS.
+          Building robust backends and pixel-perfect frontends with...
         </motion.p>
 
         <motion.div 

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 
 const skills = [
-  "CSS", "HTML", "Node.js", "JavaScript", "DSA", "C++", "Tailwind CSS", "Express.js", "MongoDB"
+  "Tailwind CSS", "HTML", "Node.js", "JavaScript", "DSA", "C++", "React", "Express.js", "MongoDB"
 ];
 
 const Skills = () => {

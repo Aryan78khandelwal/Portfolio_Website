@@ -15,7 +15,7 @@ const About = () => {
           <span className="text-[10px] tracking-[0.4em] font-mono uppercase opacity-50 block mb-6 md:mb-8">System Profile</span>
           <h2 className="text-4xl sm:text-5xl md:text-8xl font-light uppercase tracking-tight leading-none mb-8 md:mb-10">
             THE <br />
-            <span className="font-black italic">ENGINEER_</span>
+            <span className="font-black italic">BUILDER_</span>
           </h2>
           <div className="space-y-4 md:space-y-6 text-zinc-400 font-mono text-[10px] md:text-xs uppercase leading-loose tracking-wider max-w-md">
             <p>
