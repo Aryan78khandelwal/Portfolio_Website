@@ -47,12 +47,12 @@ const ProjectCard = ({ index, onSelect }) => {
         onMouseLeave={handleMouseLeave}
         onClick={() => onSelect && onSelect(projectData)}
         data-cursor="hover"
-        className="group relative bg-black border border-white/10 p-0 aspect-[16/9] md:aspect-auto h-auto md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden cursor-pointer"
+        className="group relative bg-black border border-white/10 p-0 aspect-[3/2] md:aspect-auto h-auto md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden cursor-pointer"
       >
         <img 
           src={projectData.coverImage} 
           alt="FacultyLeave - Academic Leave & Department Operations Platform" 
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-contain md:object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute top-3 right-3 sm:top-4 sm:right-4 text-[10px] font-mono text-white bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full z-10">
           01
@@ -75,7 +75,7 @@ const ProjectCard = ({ index, onSelect }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       data-cursor="hover"
-      className="group relative bg-black border border-white/10 p-6 sm:p-8 aspect-[16/9] md:aspect-auto h-auto md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden"
+      className="group relative bg-black border border-white/10 p-6 sm:p-8 aspect-[3/2] md:aspect-auto h-auto md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden"
     >
       <div className="absolute top-6 right-6 text-[10px] font-mono opacity-30">0{index + 1}</div>
       
