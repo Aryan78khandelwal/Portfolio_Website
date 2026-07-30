@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'motion/react';
+import { X, Maximize2, Github, ExternalLink } from 'lucide-react';
 
-const ProjectCard = ({ index }) => {
+const ProjectCard = ({ index, onSelect }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -28,6 +29,43 @@ const ProjectCard = ({ index }) => {
     y.set(0);
   };
 
+  if (index === 0) {
+    const projectData = {
+      title: "FacultyLeave",
+      subtitle: "Academic Leave & Department Operations Platform",
+      coverImage: "/facultyleave-cover.png",
+      githubUrl: "https://github.com/Aryan78khandelwal/FacultyLeave"
+    };
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.6, delay: index * 0.1 }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onClick={() => onSelect && onSelect(projectData)}
+        data-cursor="hover"
+        className="group relative bg-black border border-white/10 p-0 h-64 md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden cursor-pointer"
+      >
+        <img 
+          src={projectData.coverImage} 
+          alt="FacultyLeave - Academic Leave & Department Operations Platform" 
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        <div className="absolute top-4 right-4 text-[10px] font-mono text-white bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full">
+          01
+        </div>
+        <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 p-2.5 rounded-full border border-white/20 text-white flex items-center gap-2 text-xs font-mono">
+          <span>View Details & Code</span>
+          <Maximize2 size={14} />
+        </div>
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      </motion.div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -52,6 +90,8 @@ const ProjectCard = ({ index }) => {
 };
 
 const Projects = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+
   return (
     <section id="projects" className="py-24 md:py-32 px-8 md:px-20 bg-zinc-950 min-h-screen flex flex-col justify-between">
       <div className="max-w-6xl mx-auto w-full">
@@ -67,7 +107,7 @@ const Projects = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {[0, 1, 2, 3].map((i) => (
-            <ProjectCard key={i} index={i} />
+            <ProjectCard key={i} index={i} onSelect={setSelectedProject} />
           ))}
         </div>
       </div>
@@ -93,8 +133,80 @@ const Projects = () => {
           ENGINEER
         </motion.div>
       </motion.div>
+
+      {/* Modal with Cover Page Preview and GitHub CTA */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedProject(null)}
+            data-cursor="hover"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 overflow-y-auto"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-4xl w-full bg-zinc-950 border border-white/15 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex justify-between items-center px-6 py-4 border-b border-white/10 bg-zinc-900/50">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-mono text-zinc-400 bg-white/10 px-2 py-0.5 rounded">01</span>
+                  <h3 className="text-lg font-bold text-white tracking-tight">{selectedProject.title}</h3>
+                </div>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  data-cursor="hover"
+                  className="text-zinc-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-colors"
+                  aria-label="Close modal"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Cover Image Display */}
+              <div className="p-4 sm:p-6 bg-black/60 flex items-center justify-center max-h-[70vh] overflow-hidden">
+                <img
+                  src={selectedProject.coverImage}
+                  alt={selectedProject.title}
+                  className="w-full h-auto max-h-[62vh] object-contain rounded-xl border border-white/10 shadow-lg"
+                />
+              </div>
+
+              {/* Modal Action Bar */}
+              <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-5 border-t border-white/10 bg-zinc-900/80">
+                <div>
+                  <p className="text-xs font-mono text-zinc-400">{selectedProject.subtitle}</p>
+                </div>
+                
+                <div className="flex items-center gap-3">
+                  <a
+                    href={selectedProject.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-cursor="hover"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-white text-black font-semibold text-xs rounded-lg hover:bg-zinc-200 transition-all hover:scale-105 shadow-md group"
+                  >
+                    <Github size={16} />
+                    <span>View Project on GitHub</span>
+                    <ExternalLink size={14} className="opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </section>
   );
 };
 
 export default Projects;
+
+
