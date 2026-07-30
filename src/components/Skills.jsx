@@ -7,7 +7,7 @@ const skills = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-24 md:py-32 px-8 md:px-20 bg-zinc-900 text-white min-h-[70vh] flex flex-col justify-center border-b border-white/10">
+    <section id="skills" className="py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-20 bg-zinc-900 text-white min-h-[70vh] flex flex-col justify-center border-b border-white/10">
       <div className="max-w-6xl mx-auto w-full">
         <motion.div
            initial={{ opacity: 0, x: -50 }}

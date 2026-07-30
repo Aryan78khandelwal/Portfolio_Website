@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 
 const About = () => {
   return (
-    <section id="about" className="py-24 md:py-32 px-8 md:px-20 bg-black text-white min-h-[80vh] flex flex-col justify-center border-b border-white/10">
+    <section id="about" className="py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-20 bg-black text-white min-h-[80vh] flex flex-col justify-center border-b border-white/10">
       <div className="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}

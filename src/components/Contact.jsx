@@ -69,7 +69,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 px-8 md:px-20 bg-black text-white min-h-screen flex flex-col justify-center border-t border-white/10">
+    <section id="contact" className="py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-20 bg-black text-white min-h-screen flex flex-col justify-center border-t border-white/10">
       <div className="max-w-6xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20">
         <div className="flex flex-col justify-between">
           <motion.div
@@ -96,7 +96,7 @@ const Contact = () => {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="bg-white text-black p-8 md:p-12 shadow-[16px_16px_0px_white/10]"
+          className="bg-white text-black p-6 sm:p-8 md:p-12 shadow-[16px_16px_0px_white/10]"
         >
           {submitted ? (
             <div className="h-full flex flex-col justify-center gap-6 min-h-[400px]">

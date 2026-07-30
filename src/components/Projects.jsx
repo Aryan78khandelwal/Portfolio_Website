@@ -47,17 +47,17 @@ const ProjectCard = ({ index, onSelect }) => {
         onMouseLeave={handleMouseLeave}
         onClick={() => onSelect && onSelect(projectData)}
         data-cursor="hover"
-        className="group relative bg-black border border-white/10 p-0 h-64 md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden cursor-pointer"
+        className="group relative bg-black border border-white/10 p-0 aspect-[16/9] md:aspect-auto h-auto md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden cursor-pointer"
       >
         <img 
           src={projectData.coverImage} 
           alt="FacultyLeave - Academic Leave & Department Operations Platform" 
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute top-4 right-4 text-[10px] font-mono text-white bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full">
+        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 text-[10px] font-mono text-white bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full z-10">
           01
         </div>
-        <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 p-2.5 rounded-full border border-white/20 text-white flex items-center gap-2 text-xs font-mono">
+        <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 p-2 sm:p-2.5 rounded-full border border-white/20 text-white flex items-center gap-2 text-[10px] sm:text-xs font-mono z-10">
           <span>View Details & Code</span>
           <Maximize2 size={14} />
         </div>
@@ -75,12 +75,12 @@ const ProjectCard = ({ index, onSelect }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       data-cursor="hover"
-      className="group relative bg-black border border-white/10 p-8 h-64 md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden"
+      className="group relative bg-black border border-white/10 p-6 sm:p-8 aspect-[16/9] md:aspect-auto h-auto md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden"
     >
       <div className="absolute top-6 right-6 text-[10px] font-mono opacity-30">0{index + 1}</div>
       
       <div className="mt-auto z-10 flex flex-col gap-2">
-        <h3 className="text-3xl font-black uppercase tracking-tighter">Coming Soon</h3>
+        <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter">Coming Soon</h3>
         <p className="text-[10px] font-mono uppercase tracking-[0.3em] opacity-40">Interactive Component / System</p>
       </div>
 
@@ -93,7 +93,7 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
 
   return (
-    <section id="projects" className="py-24 md:py-32 px-8 md:px-20 bg-zinc-950 min-h-screen flex flex-col justify-between">
+    <section id="projects" className="py-16 sm:py-24 md:py-32 px-5 sm:px-8 md:px-20 bg-zinc-950 min-h-screen flex flex-col justify-between">
       <div className="max-w-6xl mx-auto w-full">
         <motion.div
            initial={{ opacity: 0, y: 20 }}
@@ -143,21 +143,21 @@ const Projects = () => {
             exit={{ opacity: 0 }}
             onClick={() => setSelectedProject(null)}
             data-cursor="hover"
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 overflow-y-auto"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 md:p-8 overflow-y-auto"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-4xl w-full bg-zinc-950 border border-white/15 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+              className="relative max-w-4xl w-full bg-zinc-950 border border-white/15 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl flex flex-col my-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="flex justify-between items-center px-6 py-4 border-b border-white/10 bg-zinc-900/50">
+              <div className="flex justify-between items-center px-4 py-3 sm:px-6 sm:py-4 border-b border-white/10 bg-zinc-900/50">
                 <div className="flex items-center gap-3">
                   <span className="text-xs font-mono text-zinc-400 bg-white/10 px-2 py-0.5 rounded">01</span>
-                  <h3 className="text-lg font-bold text-white tracking-tight">{selectedProject.title}</h3>
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">{selectedProject.title}</h3>
                 </div>
                 <button
                   onClick={() => setSelectedProject(null)}
@@ -170,27 +170,27 @@ const Projects = () => {
               </div>
 
               {/* Cover Image Display */}
-              <div className="p-4 sm:p-6 bg-black/60 flex items-center justify-center max-h-[70vh] overflow-hidden">
+              <div className="p-3 sm:p-6 bg-black/60 flex items-center justify-center max-h-[60vh] sm:max-h-[70vh] overflow-hidden">
                 <img
                   src={selectedProject.coverImage}
                   alt={selectedProject.title}
-                  className="w-full h-auto max-h-[62vh] object-contain rounded-xl border border-white/10 shadow-lg"
+                  className="w-full h-auto max-h-[55vh] sm:max-h-[62vh] object-contain rounded-xl border border-white/10 shadow-lg"
                 />
               </div>
 
               {/* Modal Action Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-4 px-6 py-5 border-t border-white/10 bg-zinc-900/80">
-                <div>
-                  <p className="text-xs font-mono text-zinc-400">{selectedProject.subtitle}</p>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-4 py-4 sm:px-6 sm:py-5 border-t border-white/10 bg-zinc-900/80">
+                <div className="w-full sm:w-auto">
+                  <p className="text-xs font-mono text-zinc-400 leading-relaxed">{selectedProject.subtitle}</p>
                 </div>
                 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 w-full sm:w-auto">
                   <a
                     href={selectedProject.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     data-cursor="hover"
-                    className="flex items-center gap-2 px-5 py-2.5 bg-white text-black font-semibold text-xs rounded-lg hover:bg-zinc-200 transition-all hover:scale-105 shadow-md group"
+                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-white text-black font-semibold text-xs rounded-lg hover:bg-zinc-200 transition-all hover:scale-105 shadow-md group"
                   >
                     <Github size={16} />
                     <span>View Project on GitHub</span>
