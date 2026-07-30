@@ -117,7 +117,7 @@ const Projects = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 1 }}
-        className="max-w-6xl mx-auto w-full flex flex-wrap justify-between items-end mt-20 md:mt-32 gap-4"
+        className="max-w-6xl mx-auto w-full flex flex-wrap justify-between items-end mt-12 sm:mt-20 md:mt-32 gap-4 overflow-hidden"
       >
         <div className="flex flex-col">
           <span className="text-[10px] opacity-40 uppercase font-mono">Status</span>
@@ -128,7 +128,7 @@ const Projects = () => {
           whileInView={{ opacity: 0.05, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.5, ease: "easeOut" }}
-          className="text-[40px] sm:text-[60px] md:text-[100px] font-black select-none leading-none tracking-tighter overflow-hidden"
+          className="text-[32px] sm:text-[52px] md:text-[100px] font-black select-none leading-none tracking-tighter max-w-full"
         >
           ENGINEER
         </motion.div>

@@ -7,20 +7,21 @@ const skills = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-20 bg-zinc-900 text-white min-h-[70vh] flex flex-col justify-center border-b border-white/10">
+    <section id="skills" className="py-16 sm:py-24 md:py-32 px-6 sm:px-8 md:px-20 bg-zinc-900 text-white flex flex-col justify-center border-b border-white/10">
       <div className="max-w-6xl mx-auto w-full">
         <motion.div
            initial={{ opacity: 0, x: -50 }}
            whileInView={{ opacity: 1, x: 0 }}
            viewport={{ once: true }}
            transition={{ duration: 0.8 }}
-           className="mb-20"
+           className="mb-12 md:mb-20"
         >
           <span className="text-[10px] tracking-[0.4em] uppercase opacity-50 block mb-4">Mastered Tech</span>
           <h2 className="text-4xl sm:text-6xl md:text-8xl font-light uppercase tracking-tight">EXPERTISE<span className="font-black italic text-white/90">_</span></h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-10 md:gap-x-12">
+        {/* Issue 2 fix: grid-cols-2 on mobile instead of single column */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-8 md:gap-x-12 md:gap-y-10">
           {skills.map((skill, index) => (
             <motion.div
               key={skill}
@@ -34,7 +35,7 @@ const Skills = () => {
             >
               <div className="flex flex-col">
                 <span className="text-[10px] font-mono opacity-40">0{index + 1}</span>
-                <span className="text-3xl font-black uppercase tracking-tighter">{skill}</span>
+                <span className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tighter">{skill}</span>
               </div>
               <div className="w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
             </motion.div>

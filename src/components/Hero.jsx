@@ -3,9 +3,9 @@ import { motion } from 'motion/react';
 
 const Hero = () => {
   return (
-    <section id="home" className="min-h-screen flex flex-col md:flex-row border-b border-white/10 overflow-hidden pt-16 md:pt-24">
+    <section id="home" className="min-h-[auto] md:min-h-screen flex flex-col md:flex-row border-b border-white/10 overflow-hidden pt-16 md:pt-24">
       {/* Left Content */}
-      <div className="flex-1 p-6 sm:p-8 md:p-12 md:pl-20 flex flex-col justify-center md:border-r border-white/10 bg-black">
+      <div className="flex-1 px-6 py-12 sm:px-8 sm:py-16 md:p-12 md:pl-20 flex flex-col justify-center md:border-r border-white/10 bg-black">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -42,7 +42,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Right Visual Section (Geometric/Brutalist) */}
+      {/* Right Visual Section (Geometric/Brutalist) — desktop only */}
       <div className="flex-1 bg-zinc-950 relative overflow-hidden hidden md:flex items-center justify-center p-20">
         <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,_rgba(255,255,255,0.1)_0%,_transparent_50%)]" />
