@@ -1,212 +1,344 @@
 import React, { useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'motion/react';
-import { X, Maximize2, Github, ExternalLink } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
+import { Github, ExternalLink, Plus, Minus } from 'lucide-react';
 
-const ProjectCard = ({ index, onSelect }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  if (index === 0) {
-    const projectData = {
-      title: "FacultyLeave",
-      subtitle: "Academic Leave & Department Operations Platform",
-      coverImage: "/facultyleave-cover.png",
-      githubUrl: "https://github.com/Aryan78khandelwal/FacultyLeave"
-    };
-
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6, delay: index * 0.1 }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onClick={() => onSelect && onSelect(projectData)}
-        data-cursor="hover"
-        className="group relative bg-black border border-white/10 p-0 aspect-[3/2] md:aspect-auto h-auto md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden cursor-pointer"
-      >
-        <img 
-          src={projectData.coverImage} 
-          alt="FacultyLeave - Academic Leave & Department Operations Platform" 
-          className="w-full h-full object-contain md:object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute top-3 right-3 sm:top-4 sm:right-4 text-[10px] font-mono text-white bg-black/70 backdrop-blur-md border border-white/20 px-2.5 py-1 rounded-full z-10">
-          01
-        </div>
-        <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity bg-black/80 p-2 sm:p-2.5 rounded-full border border-white/20 text-white flex items-center gap-2 text-[10px] sm:text-xs font-mono z-10">
-          <span>View Details & Code</span>
-          <Maximize2 size={14} />
-        </div>
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-gradient-to-tr from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-      </motion.div>
-    );
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      data-cursor="hover"
-      className="group relative bg-black border border-white/10 p-6 sm:p-8 aspect-[3/2] md:aspect-auto h-auto md:h-80 transition-all hover:-translate-y-2 hover:-translate-x-2 shadow-[0px_0px_0px_white] hover:shadow-[8px_8px_0px_white] flex flex-col justify-between overflow-hidden"
-    >
-      <div className="absolute top-6 right-6 text-[10px] font-mono opacity-30">0{index + 1}</div>
-      
-      <div className="mt-auto z-10 flex flex-col gap-2">
-        <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tighter">Coming Soon</h3>
-        <p className="text-[10px] font-mono uppercase tracking-[0.3em] opacity-40">Interactive Component / System</p>
-      </div>
-
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-    </motion.div>
-  );
-};
+const PROJECTS = [
+  {
+    id: 'facultyleave',
+    number: '01',
+    title: 'FacultyLeave',
+    subtitle: 'Academic Leave & Department Operations Platform',
+    description:
+      'A full-stack platform to streamline faculty leave management and automate department operations with role-based access, real-time tracking, and smart analytics.',
+    category: 'Full-Stack System',
+    status: 'Operational',
+    coverImage: '/facultyleave-cover.png',
+    githubUrl: 'https://github.com/Aryan78khandelwal/FacultyLeave',
+    technologies: ['Node.js', 'MongoDB', 'React', 'Tailwind CSS', 'Recharts'],
+    isExpandable: true,
+  },
+  {
+    id: 'project-02',
+    number: '02',
+    title: 'Coming Soon',
+    subtitle: 'Interactive Component / System',
+    description: null,
+    category: 'System in Development',
+    status: 'Standby',
+    coverImage: null,
+    githubUrl: null,
+    technologies: [],
+    isExpandable: false,
+  },
+];
 
 const Projects = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [expandedId, setExpandedId] = useState('facultyleave');
+  const shouldReduceMotion = useReducedMotion();
+
+  const toggleProject = (id) => {
+    setExpandedId((prev) => (prev === id ? null : id));
+  };
+
+  const panelVariants = {
+    collapsed: {
+      opacity: 0,
+      height: 0,
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : {
+            height: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+            opacity: { duration: 0.2 },
+          },
+    },
+    expanded: {
+      opacity: 1,
+      height: 'auto',
+      transition: shouldReduceMotion
+        ? { duration: 0 }
+        : {
+            height: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
+            opacity: { duration: 0.3, delay: 0.05 },
+          },
+    },
+  };
 
   return (
-    <section id="projects" className="py-16 sm:py-24 md:py-32 px-5 sm:px-8 md:px-20 bg-zinc-950 min-h-screen flex flex-col justify-between">
+    <section
+      id="projects"
+      className="py-16 sm:py-24 md:py-32 px-5 sm:px-8 md:px-20 bg-zinc-950 min-h-screen flex flex-col justify-between border-b border-white/10"
+    >
       <div className="max-w-6xl mx-auto w-full">
+        {/* Section Header */}
         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           transition={{ duration: 0.8 }}
-           className="mb-20"
+          initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.8 }}
+          className="mb-12 md:mb-16"
         >
-          <h2 className="text-xs tracking-[0.4em] uppercase opacity-40 mb-12">Selected Works</h2>
+          <span className="text-[10px] tracking-[0.4em] font-mono uppercase opacity-50 block mb-4">
+            Engineering Log // Index
+          </span>
+          <h2 className="text-4xl sm:text-6xl md:text-8xl font-light uppercase tracking-tight">
+            SELECTED
+            <span className="block sm:inline font-black italic text-white/90">
+              _WORKS
+            </span>
+          </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {[0, 1, 2, 3].map((i) => (
-            <ProjectCard key={i} index={i} onSelect={setSelectedProject} />
-          ))}
+        {/* Ledger Container */}
+        <div className="w-full">
+          {/* Technical Ledger Header Bar (Desktop/Tablet) */}
+          <div className="hidden sm:flex items-center justify-between px-4 sm:px-6 md:px-8 py-3 border-b border-white/20 text-[10px] font-mono uppercase tracking-[0.25em] text-zinc-500 select-none">
+            <div className="flex items-center gap-8 md:gap-12 flex-1 min-w-0">
+              <span className="w-6 shrink-0">No.</span>
+              <span>Project / Specification</span>
+            </div>
+            <div className="flex items-center gap-8 shrink-0">
+              <span className="hidden md:block">Status</span>
+              <span className="w-8 text-center">Entry</span>
+            </div>
+          </div>
+
+          {/* Ledger Rows */}
+          <div className="border-t sm:border-t-0 border-b border-white/10 divide-y divide-white/10">
+            {PROJECTS.map((project) => {
+              const isExpanded = expandedId === project.id;
+              const isExpandable = project.isExpandable;
+
+              return (
+                <div key={project.id} className="group/row">
+                  {isExpandable ? (
+                    /* Interactive Project Ledger Row */
+                    <button
+                      type="button"
+                      id={`project-trigger-${project.id}`}
+                      aria-expanded={isExpanded}
+                      aria-controls={`project-panel-${project.id}`}
+                      onClick={() => toggleProject(project.id)}
+                      data-cursor="hover"
+                      className="w-full text-left py-6 sm:py-8 px-4 sm:px-6 md:px-8 transition-colors flex items-center justify-between gap-4 group hover:bg-white/[0.02] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white focus-visible:bg-white/[0.04]"
+                    >
+                      <div className="flex items-center gap-4 sm:gap-8 md:gap-12 min-w-0 flex-1">
+                        <span className="text-xs sm:text-sm font-mono text-zinc-500 tracking-widest shrink-0">
+                          {project.number}
+                        </span>
+
+                        <div className="flex flex-col md:flex-row md:items-baseline md:gap-6 min-w-0">
+                          <h3 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-white group-hover:text-white transition-colors truncate">
+                            {project.title}
+                          </h3>
+                          <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider hidden sm:block truncate max-w-xs md:max-w-md">
+                            {project.subtitle}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4 sm:gap-8 shrink-0">
+                        <div className="hidden md:flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-zinc-400">
+                          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                          <span>{project.status}</span>
+                        </div>
+
+                        <span
+                          className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/80 group-hover:border-white/50 group-hover:text-white transition-colors"
+                          aria-hidden="true"
+                        >
+                          {isExpanded ? <Minus size={14} /> : <Plus size={14} />}
+                        </span>
+                      </div>
+                    </button>
+                  ) : (
+                    /* Quiet, Non-Expandable Coming Soon Row */
+                    <div className="w-full py-6 sm:py-8 px-4 sm:px-6 md:px-8 flex items-center justify-between gap-4 opacity-40 select-none cursor-default">
+                      <div className="flex items-center gap-4 sm:gap-8 md:gap-12 min-w-0 flex-1">
+                        <span className="text-xs sm:text-sm font-mono text-zinc-500 tracking-widest shrink-0">
+                          {project.number}
+                        </span>
+
+                        <div className="flex flex-col md:flex-row md:items-baseline md:gap-6 min-w-0">
+                          <h3 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-zinc-400 truncate">
+                            {project.title}
+                          </h3>
+                          <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider hidden sm:block truncate max-w-xs md:max-w-md">
+                            {project.subtitle}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-4 sm:gap-8 shrink-0">
+                        <div className="hidden md:flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-zinc-500">
+                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-600" />
+                          <span>{project.status}</span>
+                        </div>
+
+                        <span
+                          className="w-8 h-8 flex items-center justify-center text-zinc-600 font-mono text-sm"
+                          aria-hidden="true"
+                        >
+                          —
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Expanded Content Panel */}
+                  {isExpandable && (
+                    <AnimatePresence initial={false}>
+                      {isExpanded && (
+                        <motion.div
+                          id={`project-panel-${project.id}`}
+                          role="region"
+                          aria-labelledby={`project-trigger-${project.id}`}
+                          variants={panelVariants}
+                          initial="collapsed"
+                          animate="expanded"
+                          exit="collapsed"
+                          className="overflow-hidden bg-zinc-950/40 border-t border-white/10"
+                        >
+                          <div className="p-4 sm:p-6 md:p-8 lg:p-10">
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                              {/* Left Column: Cover Preview Artwork */}
+                              <div className="lg:col-span-7 flex flex-col gap-3">
+                                <div className="border border-white/10 bg-black/80 rounded-lg overflow-hidden shadow-2xl">
+                                  {/* Technical Preview Header */}
+                                  <div className="flex items-center justify-between px-3.5 py-2 bg-zinc-900/60 border-b border-white/10 text-[10px] font-mono uppercase tracking-widest text-zinc-400">
+                                    <span className="flex items-center gap-2">
+                                      <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
+                                      FIG. 01 // INTERFACE_VIEW
+                                    </span>
+                                    <span className="opacity-50">CANVAS_REF: 01</span>
+                                  </div>
+
+                                  {/* Cover Image */}
+                                  <div className="p-2 sm:p-4 bg-zinc-950/80 flex items-center justify-center">
+                                    <img
+                                      src={project.coverImage}
+                                      alt={`${project.title} - ${project.subtitle}`}
+                                      className="w-full h-auto max-h-[480px] object-contain rounded border border-white/5"
+                                      loading="lazy"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="flex justify-between items-center text-[10px] font-mono text-zinc-500 uppercase tracking-widest px-1">
+                                  <span>SOURCE: REPOSITORY ARCHIVE</span>
+                                  <span>FORMAT: MONOCHROME UI</span>
+                                </div>
+                              </div>
+
+                              {/* Right Column: Project Specifications & Details */}
+                              <div className="lg:col-span-5 flex flex-col justify-between h-full space-y-6">
+                                <div className="space-y-6">
+                                  {/* Metadata Tags */}
+                                  <div className="flex flex-wrap items-center gap-2">
+                                    <span className="text-[10px] font-mono text-zinc-400 bg-white/10 border border-white/10 px-2.5 py-0.5 rounded uppercase tracking-widest">
+                                      SYS.ID // {project.number}
+                                    </span>
+                                    <span className="text-[10px] font-mono text-zinc-400 border border-white/10 px-2.5 py-0.5 rounded uppercase tracking-widest">
+                                      {project.category}
+                                    </span>
+                                  </div>
+
+                                  {/* Titles */}
+                                  <div>
+                                    <h4 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-2">
+                                      {project.title}
+                                    </h4>
+                                    <p className="text-xs sm:text-sm font-mono text-zinc-300 uppercase tracking-wide leading-relaxed">
+                                      {project.subtitle}
+                                    </p>
+                                  </div>
+
+                                  {/* Description */}
+                                  <div className="border-t border-b border-white/10 py-5 space-y-2">
+                                    <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-zinc-500 block">
+                                      System Overview
+                                    </span>
+                                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
+                                      {project.description}
+                                    </p>
+                                  </div>
+
+                                  {/* Technologies */}
+                                  {project.technologies && project.technologies.length > 0 && (
+                                    <div className="space-y-3">
+                                      <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-zinc-500 block">
+                                        Technologies &amp; Architecture
+                                      </span>
+                                      <div className="flex flex-wrap gap-2">
+                                        {project.technologies.map((tech) => (
+                                          <span
+                                            key={tech}
+                                            className="px-3 py-1 border border-white/15 bg-white/[0.03] text-[10px] font-mono uppercase tracking-widest text-zinc-300 hover:border-white/40 transition-colors"
+                                          >
+                                            {tech}
+                                          </span>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* GitHub Call to Action */}
+                                {project.githubUrl && (
+                                  <div className="pt-4">
+                                    <a
+                                      href={project.githubUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      data-cursor="hover"
+                                      className="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-3.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all rounded shadow-md group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                                    >
+                                      <Github size={16} />
+                                      <span>View Project on GitHub</span>
+                                      <ExternalLink
+                                        size={14}
+                                        className="opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                                      />
+                                    </a>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-      
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
+
+      {/* Footer Branding Bar */}
+      <motion.div
+        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 1 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 1 }}
         className="max-w-6xl mx-auto w-full flex flex-wrap justify-between items-end mt-12 sm:mt-20 md:mt-32 gap-4 overflow-hidden"
       >
         <div className="flex flex-col">
           <span className="text-[10px] opacity-40 uppercase font-mono">Status</span>
           <span className="text-xs font-mono">Available for hire / Global</span>
         </div>
-        <motion.div 
-          initial={{ opacity: 0, x: 100 }}
+        <motion.div
+          initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 100 }}
           whileInView={{ opacity: 0.05, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+          transition={{ duration: shouldReduceMotion ? 0 : 1.5, ease: 'easeOut' }}
           className="text-[32px] sm:text-[52px] md:text-[100px] font-black select-none leading-none tracking-tighter max-w-full"
         >
           ENGINEER
         </motion.div>
       </motion.div>
-
-      {/* Modal with Cover Page Preview and GitHub CTA */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedProject(null)}
-            data-cursor="hover"
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 md:p-8 overflow-y-auto"
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative max-w-4xl w-full bg-zinc-950 border border-white/15 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl flex flex-col my-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Header */}
-              <div className="flex justify-between items-center px-4 py-3 sm:px-6 sm:py-4 border-b border-white/10 bg-zinc-900/50">
-                <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-zinc-400 bg-white/10 px-2 py-0.5 rounded">01</span>
-                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">{selectedProject.title}</h3>
-                </div>
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  data-cursor="hover"
-                  className="text-zinc-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-colors"
-                  aria-label="Close modal"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-
-              {/* Cover Image Display */}
-              <div className="p-3 sm:p-6 bg-black/60 flex items-center justify-center max-h-[60vh] sm:max-h-[70vh] overflow-hidden">
-                <img
-                  src={selectedProject.coverImage}
-                  alt={selectedProject.title}
-                  className="w-full h-auto max-h-[55vh] sm:max-h-[62vh] object-contain rounded-xl border border-white/10 shadow-lg"
-                />
-              </div>
-
-              {/* Modal Action Bar */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-4 py-4 sm:px-6 sm:py-5 border-t border-white/10 bg-zinc-900/80">
-                <div className="w-full sm:w-auto">
-                  <p className="text-xs font-mono text-zinc-400 leading-relaxed">{selectedProject.subtitle}</p>
-                </div>
-                
-                <div className="flex items-center gap-3 w-full sm:w-auto">
-                  <a
-                    href={selectedProject.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-cursor="hover"
-                    className="flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 sm:py-2.5 bg-white text-black font-semibold text-xs rounded-lg hover:bg-zinc-200 transition-all hover:scale-105 shadow-md group"
-                  >
-                    <Github size={16} />
-                    <span>View Project on GitHub</span>
-                    <ExternalLink size={14} className="opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </a>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
     </section>
   );
 };
 
 export default Projects;
-
-
