@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 
 const skills = [
-  "Tailwind CSS", "HTML", "Node.js", "JavaScript", "DSA", "C++", "React", "Express.js", "MongoDB"
+   "MongoDB","Express.js", "React", "Node.js", "Python", "JavaScript", "Postman", "git", "github", "mysql", "Tailwind CSS", "HTML", "DSA", "C++"
 ];
 
 const Skills = () => {
@@ -34,7 +34,7 @@ const Skills = () => {
               data-cursor="hover"
             >
               <div className="flex flex-col">
-                <span className="text-[10px] font-mono opacity-40">0{index + 1}</span>
+                <span className="text-[10px] font-mono opacity-40">{String(index + 1).padStart(2, "0")}</span>
                 <span className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tighter">{skill}</span>
               </div>
               <div className="w-2 h-2 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
