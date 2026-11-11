@@ -19,10 +19,10 @@ const About = () => {
           </h2>
           <div className="space-y-4 md:space-y-6 text-zinc-400 font-mono text-[10px] md:text-xs uppercase leading-loose tracking-wider max-w-md">
             <p>
-              Driven by the intersection of logic and aesthetics, I specialize in building robust digital architectures that scale. My approach is rooted in brutalist precision and high-performance engineering.
+              I’m Kumar Aryan, a developer who enjoys building full-stack web applications from the ground up. I work across the stack, using React to create clear, responsive interfaces and Node.js, Express, and MongoDB to power the features behind them.
             </p>
             <p>
-              With a deep focus on Node.js systems and complex data structures, I bridge the gap between abstract algorithmic efficiency and pixel-perfect user interfaces.
+              I’m also building my problem-solving skills through data structures and algorithms. I enjoy learning by making practical projects, refining them as I go, and finding simple ways to turn ideas into useful experiences.
             </p>
           </div>
         </motion.div>
