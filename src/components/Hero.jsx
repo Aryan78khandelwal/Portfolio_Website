@@ -14,8 +14,8 @@ const Hero = () => {
         >
           <span className="text-[10px] tracking-[0.4em] uppercase opacity-50 block">Engineered Systems</span>
           <h1 className="text-5xl sm:text-6xl md:text-8xl font-light leading-none tracking-tight uppercase">
-            CRAFTING <br />
-            <span className="font-black italic text-white/90">SYSTEMS</span>
+            HELLO, I’M A <br />
+            <span className="font-black italic text-white/90">DEVELOPER_</span>
           </h1>
         </motion.div>
         
@@ -25,20 +25,38 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.5 }}
           className="text-sm text-zinc-400 max-w-xs mb-10 leading-relaxed font-mono uppercase"
         >
-          Building robust backends and pixel-perfect frontends with...
+          I build full-stack web applications with React, Node.js, Express, and MongoDB, while learning machine learning and deep learning to create intelligent, useful experiences.
         </motion.p>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="flex flex-wrap gap-2"
+          className="flex flex-wrap items-center gap-4 sm:gap-6"
         >
-          {["MongoDB", "Express", "React", "Node", "DSA", "C++"].map((tag) => (
-            <span key={tag} className="px-3 py-1 border border-white/20 text-[10px] uppercase tracking-widest hover:border-white/50 transition-colors">
-              {tag}
-            </span>
-          ))}
+          <a
+            href="#projects"
+            data-cursor="hover"
+            className="inline-block px-6 py-3 bg-white text-black text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest hover:bg-zinc-200 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+          >
+            View Projects
+          </a>
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="hover"
+            className="inline-block px-6 py-3 border border-white/30 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest text-white hover:border-white hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+          >
+            View Resume
+          </a>
+          <a
+            href="#contact"
+            data-cursor="hover"
+            className="text-[10px] sm:text-xs font-mono uppercase tracking-widest text-white/50 hover:text-white border-b border-white/20 hover:border-white/60 pb-px transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white"
+          >
+            Contact Me
+          </a>
         </motion.div>
       </div>
 
@@ -52,7 +70,7 @@ const Hero = () => {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.1 }}
           transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-          className="text-[15vw] font-black opacity-5 select-none leading-none tracking-tighter text-center"
+          className="text-[12vw] font-black opacity-5 select-none leading-none tracking-tighter text-center"
         >
           KUMAR ARYAN
         </motion.div>
